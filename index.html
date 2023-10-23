@@ -58,8 +58,48 @@
       // 🧠 Implement a `getAllReversed` method which returns the ints in reverse order
       // ❗ WARNING: except for `getAllReversed`, methods must respect the order of the integers
       // ❗ WARNING: note that none of the methods actually mutate the `ints` property
+       constructor(...args){
+        this.ints=args;
+       }
 
+     getAll(){
+      return this.ints.slice();
+     }
+
+     getEvens(){
+      return this.ints.filter((int) => int % 2 === 0);
+     }
+
+     getNegatives(){
+      return this.ints.filter((int) => int %2 != 0);
+     }
+     getAllSquared(){
+      return this.ints.map((int) => itn * int);
+     }
+     pop(){
+      if(this.ints.length == 0) return undefined
+      return this.ints.pop();
+     }
+
+     push(int){
+        this.ints.push(int);
+        return this.ints.slice();
+     }
+
+     getEveryNth(){
+      return this.ints.filter((_, index) => index % n === 0);
+     }
+
+     getAllReversed(){
+      return this.ints.slice().reverse();
+     }
     }
+
+    const myInts = new ints(1, 2, 3, 4, 5, -1, -2, -3);
+
+    console.log("getAll:", myInts.getAll());
+      
+    
 
     // 👉 CHALLENGE 2 NerfGun
     class NerfGun {
