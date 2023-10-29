@@ -262,35 +262,40 @@
       constructor(...antNames) {
     this.ants = antNames.map(name => ({ name, health: 100 }));
   }
-
+ 
   work() {
   if (this.ants.length === 0) {
     return "No ants here. Did you work them to death?";
   }
 
-  const initialAntCount = this.ants.length;
-
-  this.ants = this.ants.filter(ant => {
+  let numAnts = this.ants.length;
+  this.ants = this.ants.map(ant => {
     ant.health -= 20;
-    return ant.health > 0;
-  });
+    if (ant.health <= 0) {
+      return { name: ant.name, health: 0 };
+    } else {
+      return ant;
+    }
+  }).filter(ant => ant.health > 0);
 
-  const remainingAntCount = this.ants.length;
-  const antsWorked = initialAntCount - remainingAntCount;
-
-  return `${antsWorked} ant${antsWorked !== 1 ? 's' : ''} starting work!`;
+  return `${numAnts} ants starting work!`;
 }
 
-feed(antName) {
-  const ant = this.ants.find(ant => ant.name === antName);
+  feed(name) {
+    const antsToFeed = this.ants.filter(ant => ant.name === name);
+    if (antsToFeed.length === 0) {
+      return `${name} not found!`;
+    }
 
-  if (ant) {
-    ant.health += 15;
+    this.ants = this.ants.map(ant => {
+      if (ant.name === name) {
+        ant.health += 15;
+      }
+      return ant;
+    });
+
     return "Yum!";
-  } else {
-    return `${antName} not found!`;
   }
-}//
     }
 
     // 🧪 TESTS, do not make any changes below this line ===================
